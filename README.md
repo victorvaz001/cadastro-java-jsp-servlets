@@ -13,3 +13,7 @@ Tela de Cadastro de usuarios, lista de usuarios
 
 Tela de Cadastro de Produtos
 ![cadastro-produtos.jpg](https://github.com/victorvaz001/cadastro-java-jsp-servlets/blob/master/cadastro-produtos.jpg)
+
+
+Tela de Cadastro de telefones
+![cadastro-telefones.jpg](https://github.com/victorvaz001/cadastro-java-jsp-servlets/blob/master/cadastro-telefones.jpg)
