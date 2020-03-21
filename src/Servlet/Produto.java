@@ -29,21 +29,26 @@ public class Produto extends HttpServlet {
 		String acao = request.getParameter("acao");
 		String produto = request.getParameter("produto");
 
-		if (acao.equalsIgnoreCase("delete")) {
+		if (acao != null && acao.equalsIgnoreCase("delete") && produto != null) {
 			daoProduto.delete(produto);
 			RequestDispatcher view = request.getRequestDispatcher("/CadastroProduto.jsp");
 			request.setAttribute("produtos", daoProduto.listar());
 			view.forward(request, response);
 
-		} else if (acao.equalsIgnoreCase("editar")) {
+		} else if (acao != null && acao.equalsIgnoreCase("editar")) {
 
-			BeanProduto beanProduto = daoProduto.consultar(produto);
+			BeanProduto beanProduto = daoProduto.consultar(produto);		
+			
 			RequestDispatcher view = request.getRequestDispatcher("/CadastroProduto.jsp");
 			request.setAttribute("produto", beanProduto);
 			view.forward(request, response);
 
-		} else if (acao.equalsIgnoreCase("listartodos")) {
+		} else if (acao != null && acao.equalsIgnoreCase("listartodos")) {
 
+			RequestDispatcher view = request.getRequestDispatcher("/CadastroProduto.jsp");
+			request.setAttribute("produtos", daoProduto.listar());
+			view.forward(request, response);
+		}else {
 			RequestDispatcher view = request.getRequestDispatcher("/CadastroProduto.jsp");
 			request.setAttribute("produtos", daoProduto.listar());
 			view.forward(request, response);
@@ -93,24 +98,20 @@ public class Produto extends HttpServlet {
 			produto.setNome(nome);
 			produto.setId(!id.isEmpty() ? Long.parseLong(id) : null);
 
-			try {
+		
 				if (quantidade != null && !quantidade.isEmpty()) {
 					produto.setQuantidade(Integer.parseInt(quantidade));// so pode converter caso tenho dados dentro
 
 				}
 				if (valor != null && !valor.isEmpty()) {
-					produto.setValor(Double.parseDouble(valor));// so pode converter caso tenho dados dentro
+					String valorProduto = valor.replaceAll("\\.", "");// 10500,20, retira ponto por nada, retorno
+
+					valorProduto = valorProduto.replaceAll("\\,", ".");// 10500.20 valor obtido pelo parse
+					produto.setValor(Double.parseDouble((valorProduto)));// so pode converter caso tenho dados dentro
 				}
 
-			} catch (NumberFormatException e) {
-				msg = "Digite somente números na (quantidade) e no (valor)";
-				podeInserir = false;
-			}
 
-			if (msg != null) {
-				request.setAttribute("msg", msg);
-
-			} else if (id == null || id.isEmpty() && daoProduto.validarNome(nome) && podeInserir) {
+			if (id == null || id.isEmpty() && daoProduto.validarNome(nome) && podeInserir) {
 				daoProduto.salvar(produto);
 				msg = "\nProdugo salvo com sucesso!";
 
@@ -118,7 +119,7 @@ public class Produto extends HttpServlet {
 
 				if (!daoProduto.validarNomeUpdate(nome, id)) {
 					msg = "\nNão e possivel atualizar, esté produto ja extiste com o mesmo nome!";
-					// podeInserir = false;
+					podeInserir = false;
 				} else {
 					daoProduto.atualizar(produto);
 					request.setAttribute("msg", "Produto atualizado com sucesso!");
@@ -128,6 +129,11 @@ public class Produto extends HttpServlet {
 			if (!podeInserir) {
 				request.setAttribute("produto", produto);// tera os dados que veio da tela, volta com todos os
 															// atributos
+			}
+
+			if (msg != null) {
+				request.setAttribute("msg", msg);
+
 			}
 
 		} catch (Exception e) {

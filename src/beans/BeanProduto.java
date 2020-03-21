@@ -7,6 +7,8 @@ public class BeanProduto {
 	private Double valor;
 	private Long id;
 	
+	
+	
 	public String getNome() {
 		return nome;
 	}
@@ -30,5 +32,11 @@ public class BeanProduto {
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public String getValorEmTexto() {
+		
+		//transforma o valor em texto, retirar o ponto e colocar a virgula!
+		return Double.toString(valor).replace('.', ',');
 	}
 }

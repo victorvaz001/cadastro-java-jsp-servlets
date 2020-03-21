@@ -38,27 +38,25 @@ public class Usuario extends HttpServlet {
 			String acao = request.getParameter("acao");
 			String user = request.getParameter("user");
 
-			if (acao.equalsIgnoreCase("delete")) {
+			if (acao != null && acao.equalsIgnoreCase("delete") && user != null) {
 				daoUsuario.delete(user);
 
 				RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");
 				request.setAttribute("usuarios", daoUsuario.listar());
 				view.forward(request, response);
-			} else if (acao.equalsIgnoreCase("editar")) {
+			} else if (acao != null && acao.equalsIgnoreCase("editar")) {
 				BeanCursoJsp beanCursoJsp = daoUsuario.consultar(user);
 
 				RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");
 				request.setAttribute("user", beanCursoJsp);
 				view.forward(request, response);
-			} else if (acao.equalsIgnoreCase("listartodos")) {
+			} else if (acao != null && acao.equalsIgnoreCase("listartodos")) {
 
-				RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");// indica para qual tela
-																								// ira redirecionar
-				request.setAttribute("usuarios", daoUsuario.listar()); // seta dentro do atributo de usuarios a lista de
-																		// usuarios
+				RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");// indica para qual tela // ira redirecionar
+				request.setAttribute("usuarios", daoUsuario.listar()); // seta dentro do atributo de usuarios a lista de // usuarios
 				view.forward(request, response); // termina de dar a reposta para o navegador
 
-			}else if(acao.equalsIgnoreCase("download")) {
+			}else if(acao != null && acao.equalsIgnoreCase("download")) {
 				BeanCursoJsp usuario = daoUsuario.consultar(user); //consulta no banco
 				if( usuario != null) {
 					
@@ -100,6 +98,10 @@ public class Usuario extends HttpServlet {
 					os.close();
 				
 				}
+			}else {
+				RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");// indica para qual tela // ira redirecionar
+				request.setAttribute("usuarios", daoUsuario.listar()); // seta dentro do atributo de usuarios a lista de // usuarios
+				view.forward(request, response);// termina de dar a reposta para o navegador
 			}
 
 		} catch (Exception e) {
@@ -128,7 +130,7 @@ public class Usuario extends HttpServlet {
 			String login = request.getParameter("login");
 			String senha = request.getParameter("senha");
 			String nome = request.getParameter("nome");
-			String fone = request.getParameter("fone");
+	
 			
 			String cep = request.getParameter("cep");
 			String rua = request.getParameter("rua");
@@ -144,7 +146,6 @@ public class Usuario extends HttpServlet {
 			usuario.setLogin(login);
 			usuario.setSenha(senha);
 			usuario.setNome(nome);
-			usuario.setFone(fone);
 			usuario.setCep(cep);
 			usuario.setRua(rua);
 			usuario.setBairro(bairro);
@@ -208,9 +209,6 @@ public class Usuario extends HttpServlet {
 					msg = "Nome deve ser informado";
 					podeInserir = false;
 					
-				} else if (fone == null || fone.isEmpty()) {
-					msg = "Telefone deve ser informado";
-					podeInserir = false;
 				}
 
 				else if (id == null || id.isEmpty() && !daoUsuario.validarLogin(login)) {// validar login existente
@@ -274,7 +272,7 @@ public class Usuario extends HttpServlet {
 		int reads = imagem.read();
 		while(reads != -1) { //enquanto tiver dados
 			baos.write(reads); //da  o start na leitura
-			reads = imagem.read(); //lentdo a imagme
+			reads = imagem.read(); //lendo a imagem
 		}
 		
 		return baos.toByteArray(); //retorna um array de bytes
