@@ -50,7 +50,7 @@
 					<tr>
 					
 					<!-- ValorEmTexto em valorEmTexto transforma o valor em um atributo -->
-						<td>Valor R$:</td>
+						<td>Valor R$</td>
 						<td><input type="text" id="valor" name="valor" data-thousands="." data-decimal="," data-precision="2"
 							value="${produto.valorEmTexto}" maxlength="20" placeholder="Informe o valor do produto" title="Informe o valor do produto"/></td>
 					</tr>
