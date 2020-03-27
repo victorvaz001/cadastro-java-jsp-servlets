@@ -18,15 +18,19 @@
 </head>
 <body>
 
-
+	<!--  Tela de login de acesso para o Sistema -->
 	<div class="login-page">
+	<h3 style="text-align: center">Sistema de cadsatro</h3><br>
+	<h1 style="text-align: center">JSP + Servlet + JDBC </h1>
+	<center><span><b>USUÁRIO:</b> admin <br> <b>SENHA:</b> admin</span></center><br>
 		<div class="form">
-			<form action="LoginServlet" method="post" login-form>
+			<form action="LoginServlet"  class="login-form">
 				Login: <input type="text" id="login" name="login"> <br />
 				Senha: <input type="password" id="senha" name="senha"> <br />
 				<button type="submit" value="Logar">Logar</button>
 			</form>
 		</div>
+		<h3 style="text-align: center"><a href="#" style="text-decoration: none;">Java Web </a></h3>
 	</div>
 </body>
 </html>

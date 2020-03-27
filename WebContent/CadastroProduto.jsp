@@ -23,8 +23,9 @@
 </head>
 <body>
 
-<a href="acessoliberado.jsp">Inicio</a>
-<a href="index.jsp">Sair</a>
+<a href="acessoliberado.jsp"><img title="Inicio" src="resourses/img/home.png" width="40px" height="40px"/></a>
+<a href="index.jsp"><img title="Sair" src="resourses/img/sair.png" width="40px" height="40px"/></a>
+
 	<h1 style="text-align: center;">Cadastro de Produtos</h1>
 	<h3 style="text-align: center; color: green;">${msg}</h3>
 	<form action="salvarProduto" method="post" id="formProduduct"
@@ -44,15 +45,15 @@
 					</tr>
 					<tr>
 						<td>Quantidade Un:</td>
-						<td><input type="number" id="quantidade" name="quantidade"
-							value="${produto.quantidade}" maxlength="10" placeholder="Informe a quantidade" title="Informe a quantidade"/></td>
+						<td><input type="text" id="quantidade" name="quantidade" maxlength="7"
+							value="${produto.quantidade}"  placeholder="Informe a quantidade" title="Informe a quantidade"/></td>
 					</tr>
 					<tr>
 					
 					<!-- ValorEmTexto em valorEmTexto transforma o valor em um atributo -->
 						<td>Valor R$</td>
 						<td><input type="text" id="valor" name="valor" data-thousands="." data-decimal="," data-precision="2"
-							value="${produto.valorEmTexto}" maxlength="20" placeholder="Informe o valor do produto" title="Informe o valor do produto"/></td>
+							value="${produto.valorEmTexto}" maxlength="8" placeholder="Informe o valor do produto" title="Informe o valor do produto"/></td>
 					</tr>
 					<tr>
 						<td></td>
@@ -66,7 +67,7 @@
 	</form>
 	<div class="container">
 		<table class="responsive-table">
-
+			<caption>Lista de Produtos</caption>
 			<tr>
 				<th>Id:</th>
 				<th>Nome:</th>
@@ -83,7 +84,7 @@
 					<td><c:out value="${produto.quantidade}"></c:out></td>
 					<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${produto.valor}"/> </td>
 
-					<td><a href="salvarProduto?acao=delete&produto=${produto.id}"><img
+					<td><a onclick="return confirm('Confirmar exclusão?');" href="salvarProduto?acao=delete&produto=${produto.id}"><img
 							src="resourses/img/excluir.png" alt="excluir" title="Excluir"
 							width="20px" height="20px"> </a></td>
 
@@ -128,11 +129,18 @@
 	
 	$(function() {
   		 $('#valor').maskMoney(); //mascara de dinheiro
- 	})
+ 	});
+ 	
+	
+ 	$(document).ready(function() {
+ 		$("#quantidade").keyup(function() {
+ 			$("#quantidade").val(this.value.match(/[0-9]*/));
+ 		});
+ 		
+ 	});
 	
 	
 	</script>
-
 
 </body>
 </html>

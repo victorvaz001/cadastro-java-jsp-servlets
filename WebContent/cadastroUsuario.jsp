@@ -1,3 +1,4 @@
+<%@page import="beans.BeanCursoJsp"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -19,8 +20,12 @@
 
 </head>
 <body>
-	<a href="acessoliberado.jsp">Inicio</a>
-	<a href="index.jsp">Sair</a>
+
+	<a href="acessoliberado.jsp"><img title="Inicio"
+		src="resourses/img/home.png" width="40px" height="40px" /></a>
+	<a href="index.jsp"><img title="Sair" src="resourses/img/sair.png"
+		width="40px" height="40px" /></a>
+
 	<h1 style="text-align: center;">Cadastro de usuario</h1>
 	<h3 style="text-align: center; color: orange;">${msg}</h3>
 	<form action="salvarUsuario" method="post" id="formUser"
@@ -80,29 +85,46 @@
 						<td>IBGE:</td>
 						<td><input type="text" id="ibge" name="ibge"
 							value="${user.ibge}" placeholder="Informe o IBGE" maxlength="20"></td>
-							
+
 						<td>Estado:</td>
 						<td><input type="text" id="estado" name="estado"
 							value="${user.estado}" placeholder="Informe o nome do estado"
 							maxlength="50"></td>
-					</tr>
 
+					</tr>
 					<tr>
 						<td>Foto:</td>
-						<td><input type="file" name="foto"> <input
-							type="text" style="display: none;" name="fotoTemp"
-							readonly="readonly" value="${user.fotoBase64}" /> <input
-							type="text" style="display: none;" name="contetType"
-							readonly="readonly" value="${user.contentType}" /></td>
+						<td><input type="file" name="foto"></td>
+
+						<td>Sexo</td>
+						<td><input type="radio" name="sexo" ${user.sexo eq 'masculino' ?'checked' : '' } 
+						 value="masculino">Masculino</input> 
+							
+						<input type="radio" name="sexo" ${user.sexo eq 'feminino' ? 'checked' : ''} 
+						 value="feminino">Feminino</input>
+						 </td>
 					</tr>
 
 					<tr>
 						<td>Curriculo:</td>
 						<td><input type="file" name="curriculo" value="curriculo">
-							<input type="text" style="display: none;" name="fotoTempPDF"
-							readonly="readonly" value="${user.curriculoBase64}" /> <input
-							type="text" style="display: none;" name="contetTypePDF"
-							readonly="readonly" value="${user.contentTyoeCurriculo}" /></td>
+						</td>
+
+						<td>Ativo:</td>
+						<td><input type="checkbox" id="ativo" name="ativo"
+							<% 
+							if(request.getAttribute("user") != null){
+								
+								BeanCursoJsp user = (BeanCursoJsp) request.getAttribute("user");
+								if(user.isAtivo()){
+									out.print(" ");
+									out.print("checked=\"checked\"");// será marcado caso o usuário for ativo
+									out.print(" ");
+								}
+							}
+						%>>
+						</td>
+
 					</tr>
 
 
@@ -124,7 +146,7 @@
 
 	<div class="container">
 		<table class="responsive-table">
-			<caption>Usuários cadastrados</caption>
+			<caption>Lista de usuários</caption>
 			<tr>
 				<th>Id</th>
 				<th>Foto</th>
@@ -138,14 +160,14 @@
 				<tr>
 					<td style="width: 150px"><c:out value="${user.id}"></c:out></td>
 
-					<c:if test="${user.fotoBase64.isEmpty() == false}">
+					<c:if test="${user.fotoBase64Miniatura.isEmpty() == false}">
 						<td><a
 							href="salvarUsuario?acao=download&tipo=imagem&user=${user.id}"><img
-								src='<c:out value="${user.tempFotoUser}"/>' alt="Imagem User"
-								title="Imagem User" width="30px" height="30px"></a></td>
+								src='<c:out value="${user.fotoBase64Miniatura}"/>'
+								alt="Imagem User" title="Imagem User" width="30px" height="30px"></a></td>
 					</c:if>
-					<c:if test="${user.fotoBase64.isEmpty() == true}">
-						<td><img alt="Imagem User" src="resourses/img/userpadrao.png"
+					<c:if test="${user.fotoBase64Miniatura == null}">
+						<td><img alt="Imagem User" src="resourses/img/userPadrao.png"
 							width="40px" height="40px" onclick="alert('Não possui imagem!')">
 						</td>
 					</c:if>
@@ -156,7 +178,7 @@
 								alt="Curriculo" src="resourses/img/pdf.png" width="30px"
 								height="30px"></a></td>
 					</c:if>
-					<c:if test="${user.curriculoBase64.isEmpty() == true}">
+					<c:if test="${user.curriculoBase64 == null}">
 						<td><img alt="Curriculo" src="resourses/img/pdf.png"
 							width="30px" height="30px"
 							onclick="alert('Não possui curriculo!')"></td>
@@ -168,7 +190,8 @@
 							alt="Telefones" title="Telefones"
 							src="resourses/img/telefones.png" width="30px" height="30px"></a></td>
 
-					<td><a href="salvarUsuario?acao=delete&user=${user.id}"><img
+					<td><a href="salvarUsuario?acao=delete&user=${user.id}"
+						onclick="return confirm('Confirmar exclusão?');"><img
 							src="resourses/img/excluir.png" alt="Excluir" title="Excluir"
 							width="30px" height="30px"></a></td>
 

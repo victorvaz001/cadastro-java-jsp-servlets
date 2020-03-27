@@ -26,6 +26,8 @@ public class BeanCursoJsp {
 	
 	private String fotoBase64;
 	
+	private String fotoBase64Miniatura;
+	
 	private String contentType;
 	
 	private String tempFotoUser;
@@ -34,6 +36,52 @@ public class BeanCursoJsp {
 	
 	private String contentTyoeCurriculo;
 	
+	private boolean ativo;
+	
+	private String sexo;
+	
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+	
+	public String getSexo() {
+		return sexo;
+	}
+	
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+
+	private boolean atualizarImagem = true;
+	private boolean atualizarPDF = true;
+	
+	public boolean isAtualizarImagem() {
+		return atualizarImagem;
+	}
+
+	public void setAtualizarImagem(boolean atualizarImagem) {
+		this.atualizarImagem = atualizarImagem;
+	}
+
+	public boolean isAtualizarPDF() {
+		return atualizarPDF;
+	}
+
+	public void setAtualizarPDF(boolean atualizarPDF) {
+		this.atualizarPDF = atualizarPDF;
+	}
+
+	public void setFotoBase64Miniatura(String fotoBase64Miniatura) {
+		this.fotoBase64Miniatura = fotoBase64Miniatura;
+	}
+	
+	public String getFotoBase64Miniatura() {
+		return fotoBase64Miniatura;
+	}
 	
 	
 	public String getTempFotoUser() {

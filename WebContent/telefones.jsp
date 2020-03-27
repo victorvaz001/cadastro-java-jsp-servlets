@@ -16,8 +16,8 @@
 
 </head>
 <body>
-	<a href="acessoliberado.jsp">Inicio</a>
-	<a href="index.jsp">Sair</a>
+	<a href="acessoliberado.jsp"><img title="Inicio" src="resourses/img/home.png" width="40px" height="40px"/></a>
+	<a href="index.jsp"><img title="Sair" src="resourses/img/sair.png" width="40px" height="40px"/></a>
 	<h1 style="text-align: center;">Cadastro de Telefones</h1>
 	<h3 style="text-align: center; color: orange;">${msg}</h3>
 
@@ -65,7 +65,7 @@
 
 	<div class="container">
 		<table class="responsive-table">
-			<caption>Usuários cadastrados</caption>
+			<caption>Lista de telefones</caption>
 			<tr>
 				<th>Id</th>
 				<th>Número</th>
@@ -77,7 +77,7 @@
 					<td><c:out value="${fone.id}"></c:out></td>
 					<td><c:out value="${fone.numero}"></c:out></td>
 					<td><c:out value="${fone.tipo}"></c:out></td>
-					<td><a
+					<td><a onclick="return confirm('Confirmar exclusão?');"
 						href="salvarTelefones?user=${fone.usuario}&acao=deleteFone&foneId=${fone.id}">
 							<img src="resourses/img/excluir.png" alt="Excluir"
 							title="Excluir" width="20px" height="20px">
