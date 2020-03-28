@@ -40,6 +40,17 @@ public class BeanCursoJsp {
 	
 	private String sexo;
 	
+	private String perfil;
+	
+	
+	public String getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
+	}
+
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}

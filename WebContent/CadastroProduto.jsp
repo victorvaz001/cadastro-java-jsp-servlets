@@ -55,6 +55,25 @@
 						<td><input type="text" id="valor" name="valor" data-thousands="." data-decimal="," data-precision="2"
 							value="${produto.valorEmTexto}" maxlength="8" placeholder="Informe o valor do produto" title="Informe o valor do produto"/></td>
 					</tr>
+					
+					<tr>
+						<td>Categoria</td>
+						<td>
+							<select id="categorias" name="categoria_id"> 
+							<c:forEach items="${categorias}" var="cat">
+							<!--  carregando o id da categoria -->	
+							<option value="${cat.id}" id="${cat.id}"
+								<c:if test="${cat.id == produto.categoria_id}">
+								<c:out value = "selected=selected" />
+								</c:if>>
+							<!-- sera mostrado na tela -->
+							${cat.nome}
+							</option>						
+							</c:forEach>
+							</select>
+						</td>
+					</tr>					
+					
 					<tr>
 						<td></td>
 						<td><input type="submit" value="Salvar" style="width: 86px"/> <input

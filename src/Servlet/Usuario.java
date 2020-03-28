@@ -143,6 +143,7 @@ public class Usuario extends HttpServlet {
 			String estado = request.getParameter("estado");
 			String ibge = request.getParameter("ibge");
 			String sexo = request.getParameter("sexo");
+			String perfil = request.getParameter("perfil");
 			
 			//System.out.println(request.getParameter("ativo")); // on
 			
@@ -160,6 +161,7 @@ public class Usuario extends HttpServlet {
 			usuario.setEstado(estado);
 			usuario.setIbge(ibge);
 			usuario.setSexo(sexo);
+			usuario.setPerfil(perfil);
 			
 			
 			/*campo checkbox*/

@@ -26,32 +26,34 @@ public class Produto extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		try {
 		String acao = request.getParameter("acao") != null ? request.getParameter("acao") : "listartodos";
 		String produto = request.getParameter("produto");
+		
+		RequestDispatcher view = request.getRequestDispatcher("/CadastroProduto.jsp");
 
 		if (acao != null && acao.equalsIgnoreCase("delete") && produto != null) {
 			daoProduto.delete(produto);
-			RequestDispatcher view = request.getRequestDispatcher("/CadastroProduto.jsp");
+			
+			
 			request.setAttribute("produtos", daoProduto.listar());
-			view.forward(request, response);
 
 		} else if (acao != null && acao.equalsIgnoreCase("editar")) {
 
 			BeanProduto beanProduto = daoProduto.consultar(produto);
 
-			RequestDispatcher view = request.getRequestDispatcher("/CadastroProduto.jsp");
 			request.setAttribute("produto", beanProduto);
-			view.forward(request, response);
 
 		} else if (acao != null && acao.equalsIgnoreCase("listartodos")) {
 
-			RequestDispatcher view = request.getRequestDispatcher("/CadastroProduto.jsp");
 			request.setAttribute("produtos", daoProduto.listar());
-			view.forward(request, response);
-		} else {
-			RequestDispatcher view = request.getRequestDispatcher("/CadastroProduto.jsp");
-			request.setAttribute("produtos", daoProduto.listar());
-			view.forward(request, response);
+		} 
+		
+		request.setAttribute("categorias", daoProduto.listaCategorias());
+		view.forward(request, response); //confirma o redirecionamento
+		
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
 
 	}
@@ -66,6 +68,7 @@ public class Produto extends HttpServlet {
 			try {
 				RequestDispatcher view = request.getRequestDispatcher("/CadastroProduto.jsp");
 				request.setAttribute("produtos", daoProduto.listar());
+				request.setAttribute("categorias", daoProduto.listaCategorias());
 				view.forward(request, response);
 
 			} catch (Exception e) {
@@ -78,6 +81,7 @@ public class Produto extends HttpServlet {
 			String nome = request.getParameter("nome");
 			String quantidade = request.getParameter("quantidade");
 			String valor = request.getParameter("valor");
+			String categoria = request.getParameter("categoria_id");
 
 			try {
 
@@ -104,6 +108,8 @@ public class Produto extends HttpServlet {
 				BeanProduto produto = new BeanProduto();
 				produto.setNome(nome);
 				produto.setId(!id.isEmpty() ? Long.parseLong(id) : null);
+				produto.setCategoria_id(Long.parseLong(categoria));
+				
 
 				if (quantidade != null && !quantidade.isEmpty()) {
 					produto.setQuantidade(Integer.parseInt(quantidade));// so pode converter caso tenho dados dentro
@@ -143,6 +149,7 @@ public class Produto extends HttpServlet {
 
 				RequestDispatcher view = request.getRequestDispatcher("/CadastroProduto.jsp");
 				request.setAttribute("produtos", daoProduto.listar());
+				request.setAttribute("categorias", daoProduto.listaCategorias());
 				view.forward(request, response);
 
 			} catch (Exception e) {

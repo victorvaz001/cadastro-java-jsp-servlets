@@ -13,3 +13,6 @@ constraint prod_id primary key(id)
 
 
 select count(1) as qtd from usuario where login='" + login + "' and id <> " + id
+
+ALTER TABLE produto ADD constraint categoria_pkey foreign key (categoria_id)
+references categoria (id);

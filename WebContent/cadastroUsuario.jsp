@@ -6,9 +6,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
+
+
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="ISO-8859-1">
 <title>Cadastro de Usuário</title>
 <link rel="stylesheet" href="resourses/css/cadastro.css">
@@ -34,10 +37,10 @@
 		<!-- Executa antes de inviar para o servidor -->
 		<ul class="form-style-1">
 			<li>
-				<table>
+				<table >
 					<tr>
 						<td>Codigo:</td>
-						<td><input type="text" readonly="readonly" id="id" name="id"
+						<td><input type="text" readonly="readonly" id="id" name="id" 
 							value="${user.id}" class="field-long"></td>
 
 						<td>Cep:</td>
@@ -47,68 +50,87 @@
 					</tr>
 					<tr>
 						<td>Login:</td>
-						<td><input type="text" id="login" name="login"
+						<td><input type="text" id="login" name="login" 
 							value="${user.login}" placeholder="informe o login"
 							maxlength="10"></td>
 
-						<td>Rua:</td>
-						<td><input type="text" id="rua" name="rua"
+						<td>Rua:</td> 
+						<td><input type="text" id="rua" name="rua"  
 							value="${user.rua}" placeholder="Informe o nome da rua"
 							maxlength="50"></td>
 					</tr>
 
 					<tr>
 						<td>Senha:</td>
-						<td><input type="password" id="senha" name="senha"
+						<td><input type="password" id="senha" name="senha" 
 							value="${user.senha}" placeholder="Informe a senha"
 							maxlength="10"></td>
 
 						<td>Bairro:</td>
-						<td><input type="text" id="bairro" name="bairro"
+						<td><input type="text" id="bairro" name="bairro" 
 							value="${user.bairro}" placeholder="Informe o nome do bairro"
 							maxlength="50"></td>
 
 					</tr>
 					<tr>
 						<td>Nome:</td>
-						<td><input type="text" id="nome" name="nome"
+						<td><input type="text" id="nome" name="nome" style="width: 300px"
 							value="${user.nome}" placeholder="Informe o nome do usuário"
 							maxlength="50"></td>
 
 						<td>Cidade:</td>
-						<td><input type="text" id="cidade" name="cidade"
+						<td><input type="text" id="cidade" name="cidade" 
 							value="${user.cidade}" placeholder="Informe o nome da cidade"
 							maxlength="50"></td>
 
 					</tr>
 					<tr>
 						<td>IBGE:</td>
-						<td><input type="text" id="ibge" name="ibge"
+						<td><input type="text" id="ibge" name="ibge" 
 							value="${user.ibge}" placeholder="Informe o IBGE" maxlength="20"></td>
 
 						<td>Estado:</td>
-						<td><input type="text" id="estado" name="estado"
+						<td><input type="text" id="estado" name="estado" 
 							value="${user.estado}" placeholder="Informe o nome do estado"
 							maxlength="50"></td>
 
 					</tr>
+
+					<tr>
+						<td>Perfil:</td>
+						<td><select id="perfil" name="perfil" >
+								<option value="nao_informado">[--SELECIONE--]</option>
+								<option value="administrador"
+								${user.perfil eq 'administrador' ?'selected' : '' }
+								>Administrador(a)</option>
+								
+								<option value="secretario"
+								${user.perfil eq 'secretario' ?'selected' : '' }
+								>Secretário(a)</option>
+								
+								<option value="gerente"
+								${user.perfil eq 'gerente' ?'selected' : '' }
+								>Gerente</option>
+								
+								<option value="funcionario"
+								${user.perfil eq 'funcionario' ?'selected' : '' }
+								>Funcionario</option>
+						</select></td>
+
+						<td>Sexo</td>
+						<td><input type="radio" name="sexo"
+							${user.sexo eq 'masculino' ?'checked' : '' } value="masculino">Masculino</input>
+
+							<input type="radio" name="sexo"
+							${user.sexo eq 'feminino' ? 'checked' : ''} value="feminino">Feminino</input>
+						</td>
+
+					</tr>
+
 					<tr>
 						<td>Foto:</td>
 						<td><input type="file" name="foto"></td>
 
-						<td>Sexo</td>
-						<td><input type="radio" name="sexo" ${user.sexo eq 'masculino' ?'checked' : '' } 
-						 value="masculino">Masculino</input> 
-							
-						<input type="radio" name="sexo" ${user.sexo eq 'feminino' ? 'checked' : ''} 
-						 value="feminino">Feminino</input>
-						 </td>
-					</tr>
-
-					<tr>
-						<td>Curriculo:</td>
-						<td><input type="file" name="curriculo" value="curriculo">
-						</td>
 
 						<td>Ativo:</td>
 						<td><input type="checkbox" id="ativo" name="ativo"
@@ -125,10 +147,15 @@
 						%>>
 						</td>
 
+
+
 					</tr>
 
-
-
+					<tr>
+						<td>Curriculo:</td>
+						<td><input type="file" name="curriculo" value="curriculo">
+						</td>
+					</tr>
 					<tr>
 						<td></td>
 						<td><input type="submit" value="Salvar" style="width: 173px">
@@ -142,7 +169,20 @@
 			</li>
 		</ul>
 	</form>
-
+	
+	<form method="post" action="servletPesquisa" style="width: 90%">
+	<ul class="form-style-1">
+	<li>
+		<table>
+		<tr>
+			<td>Descrição: </td>
+			<td><input type="text"  id="descricaoconsulta" name="descricaoconsulta"></td>
+			<td><input type="submit" value="pesquisar"></td>
+		<tr>	
+		</table>
+	</li>
+	</ul>
+	</form>
 
 	<div class="container">
 		<table class="responsive-table">
@@ -228,6 +268,7 @@
 
 			return true; //se todas os dados estiverem sidos informados corretamente, retornara true e deixara cadastrar!
 		}
+	
 
 		function consultaCep() {
 			var cep = $("#cep").val();
@@ -258,5 +299,10 @@
 					});
 		}
 	</script>
+	
+
+	
+	
+	
 </body>
 </html>
