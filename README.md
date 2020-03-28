@@ -11,4 +11,7 @@
 ## Cadastro de usuarios
 ![Add cadatro-usuarios](https://github.com/victorvaz001/cadastro-java-jsp-servlets/blob/master/cadatro-usuarios-.jpg)
 
+## Cadastro de telefones
+![Add cadatro-telefones](https://github.com/victorvaz001/cadastro-java-jsp-servlets/blob/master/cadatro-telefones-.jpg)
+
 
