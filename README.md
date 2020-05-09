@@ -2,7 +2,7 @@
 
 ## Tela de login
 
-![tela de login](https://github.com/victorvaz001/cadastro-java-jsp-servlets/blob/master/tela%20de%20login.jpg)
+![tela de login](https://github.com/victorvaz001/cadastro-java-jsp-servlets/blob/master/Tela%20de%20Login.jpg)
 
 
 ## Tela inicial do sistema
