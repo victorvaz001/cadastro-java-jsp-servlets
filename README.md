@@ -15,6 +15,6 @@
 ![Add cadatro-telefones](https://github.com/victorvaz001/cadastro-java-jsp-servlets/blob/master/cadatro-telefones-.jpg)
 
 ## Cadastro de produtos
-![Add cadatro-produto](https://github.com/victorvaz001/cadastro-java-jsp-servlets/blob/master/cadatro-produto-.jpg)
+![Add cadatro-produto](https://github.com/victorvaz001/cadastro-java-jsp-servlets/blob/master/cadastroProdutos.jpg)
 
 
