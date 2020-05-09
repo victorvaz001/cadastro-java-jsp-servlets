@@ -105,7 +105,7 @@ public class DaoUsuario {
 
 	public void delete(String id) {
 		try {
-			String sql = "delete from usuario where id = '" + id + "' and login <> 'admin'";
+			String sql = "delete from usuario where id = '" + id +"' and login <> 'admin'";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.execute();
 

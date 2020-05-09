@@ -94,7 +94,7 @@ public class TelefonesServlets extends HttpServlet {
 
 					RequestDispatcher view = request.getRequestDispatcher("/telefones.jsp");// redirecionamento
 					request.setAttribute("telefones", daoTelefones.listar(beanCursoJsp.getId()));
-					request.setAttribute("msg", "Informe o numero do telefone");
+					request.setAttribute("msg2", "Informe o numero do telefone");
 					view.forward(request, response);
 				} else {
 
@@ -116,7 +116,7 @@ public class TelefonesServlets extends HttpServlet {
 																									// telefones
 																									// para carregar na
 																									// tela
-					request.setAttribute("msg", "Salvo com sucesso");
+					request.setAttribute("msg", "Telefone salvo com sucesso");
 					view.forward(request, response);
 
 				}

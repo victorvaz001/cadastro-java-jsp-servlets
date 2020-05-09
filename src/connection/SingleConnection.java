@@ -8,9 +8,9 @@ import java.sql.DriverManager;
 public class SingleConnection {
 
 	//?autoReconnect=true -> caso a conexao caia, será retomada automaticamente
-	private static String banco = "jdbc:postgresql://localhost:5432/curso-jsp?autoReconnect=true";
-	private static String password = "admin";
-	private static String user = "postgres";
+	private static String banco = "jdbc:postgresql://localhost:5432/victorgo_projetojspservlet?autoReconnect=true";
+	private static String password = "-9fu8B7A8WIv)s";
+	private static String user = "victorgo";
 	private static Connection connection = null;
 	
 	static {

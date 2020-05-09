@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import beans.BeanCursoJsp;
 import dao.DaoLogin;
@@ -36,21 +37,38 @@ public class LoginServlet extends HttpServlet {
 
 			String login = request.getParameter("login");
 			String senha = request.getParameter("senha");
+			
+			String url = request.getParameter("url");
+			
+			String msg = "";
+
 
 			if (login != null && !login.isEmpty() && senha != null && !senha.isEmpty()) {
 
 				if (daoLogin.validarLogin(login, senha)) {// acesso ok
-					RequestDispatcher dispatcher = request.getRequestDispatcher("acessoliberado.jsp");
+					
+					BeanCursoJsp userLogado = new BeanCursoJsp();
+					userLogado.setLogin(login);
+					userLogado.setSenha(senha);
+					
+					
+					//Adciona o usuarioLogado na sessão
+					HttpServletRequest req = (HttpServletRequest) request;
+					HttpSession session = req.getSession();
+					session.setAttribute("usuario", userLogado);
+					
+					
+					//redireciona para o sistema
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/acessoliberado.jsp");
 					dispatcher.forward(request, response);
 					
+					
 				} else {// acesso negado
-					RequestDispatcher dispatcher = request.getRequestDispatcher("acessonegado.jsp");
+					request.setAttribute("msg", "Usuario ou senha invalidos!");
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
 					dispatcher.forward(request, response);
-				}
+			   }
 
-			}else {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-				dispatcher.forward(request, response);
 			}
 
 		} catch (Exception e) {

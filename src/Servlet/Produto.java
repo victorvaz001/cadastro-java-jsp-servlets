@@ -29,13 +29,14 @@ public class Produto extends HttpServlet {
 		try {
 		String acao = request.getParameter("acao") != null ? request.getParameter("acao") : "listartodos";
 		String produto = request.getParameter("produto");
+		String msg = "";
 		
 		RequestDispatcher view = request.getRequestDispatcher("/CadastroProduto.jsp");
 
 		if (acao != null && acao.equalsIgnoreCase("delete") && produto != null) {
 			daoProduto.delete(produto);
 			
-			
+			msg = "Produto foi excluido";
 			request.setAttribute("produtos", daoProduto.listar());
 
 		} else if (acao != null && acao.equalsIgnoreCase("editar")) {
@@ -48,6 +49,10 @@ public class Produto extends HttpServlet {
 
 			request.setAttribute("produtos", daoProduto.listar());
 		} 
+		
+		if(msg != null) {
+			request.setAttribute("msg", msg);
+		}
 		
 		request.setAttribute("categorias", daoProduto.listaCategorias());
 		view.forward(request, response); //confirma o redirecionamento
@@ -86,6 +91,7 @@ public class Produto extends HttpServlet {
 			try {
 
 				String msg = null;
+				String msg2 = null;
 				boolean podeInserir = true;
 
 				if (nome == null || nome.isEmpty()) {
@@ -101,7 +107,7 @@ public class Produto extends HttpServlet {
 					podeInserir = false;
 
 				} else if (id == null || id.isEmpty() && !daoProduto.validarNome(nome)) { // quando for usuario novo
-					msg = "Produto ja extiste com o memso nome!";
+					msg2 = "Produto ja extiste com o memso nome!";
 					podeInserir = false;
 				}
 
@@ -129,11 +135,11 @@ public class Produto extends HttpServlet {
 				} else if (id != null && !id.isEmpty() && podeInserir) {
 
 					if (!daoProduto.validarNomeUpdate(nome, id)) {
-						msg = "\nNão e possivel atualizar, esté produto ja extiste com o mesmo nome!";
+						msg2 = "\nNão e possivel atualizar, esté produto ja extiste com o mesmo nome!";
 						podeInserir = false;
 					} else {
 						daoProduto.atualizar(produto);
-						request.setAttribute("msg", "Produto atualizado com sucesso!");
+						msg = "Produto atualizado com sucesso!";
 					}
 				}
 
@@ -144,7 +150,8 @@ public class Produto extends HttpServlet {
 
 				if (msg != null) {
 					request.setAttribute("msg", msg);
-
+				} else {
+					request.setAttribute("msg2", msg2);
 				}
 
 				RequestDispatcher view = request.getRequestDispatcher("/CadastroProduto.jsp");

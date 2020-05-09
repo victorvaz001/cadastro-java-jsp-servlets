@@ -29,7 +29,7 @@ public class Filter implements javax.servlet.Filter {
 
 		try {
 			chain.doFilter(request, response);
-
+			
 			connection.commit();
 		} catch (Exception e) {
 			try {

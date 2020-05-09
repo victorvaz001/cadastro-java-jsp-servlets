@@ -44,7 +44,7 @@ public class Usuario extends HttpServlet {
 
 			if (acao != null && acao.equalsIgnoreCase("delete") && user != null) {
 				daoUsuario.delete(user);
-
+				
 				RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");
 				request.setAttribute("usuarios", daoUsuario.listar());
 				view.forward(request, response);
@@ -243,6 +243,7 @@ public class Usuario extends HttpServlet {
 				
 				
 				String msg = null;
+				String msg2 = null;
 				boolean podeInserir = true;
 
 				if (login == null || login.isEmpty()) {
@@ -260,31 +261,33 @@ public class Usuario extends HttpServlet {
 				}
 
 				else if (id == null || id.isEmpty() && !daoUsuario.validarLogin(login)) {// validar login existente
-					msg = "Usuario ja existe com o mesmo login!";
+					msg2 = "Usuario ja existe com o mesmo login!";
 					podeInserir = false;
 
 				} else if (id == null || id.isEmpty() && !daoUsuario.validarSenha(senha)) {// quando for usuario novo
-					msg = "\n A senha ja existe para outro usuario!";
+					msg2 = "\n A senha ja existe para outro usuario!";
 					podeInserir = false;
 					
 				}else if (id == null || id.isEmpty() && daoUsuario.validarLogin(login) && podeInserir) {
 
 					daoUsuario.Salvar(usuario);
-
-					//msg = "\nSalvo com sucesso!";
+					msg = "Usuário Salvo com Sucesso!";
 
 				} else if (id != null && !id.isEmpty() && podeInserir) {
 
 					if (!daoUsuario.validarLoginUpdate(login, id)) {
-						request.setAttribute("msg", "Esté Login já existe para outro usuario");
+						msg2 = "Esté Login já existe para outro usuario";
+						//request.setAttribute("msg2", "Esté Login já existe para outro usuario");
 						podeInserir = false;
 
 					} else if (!daoUsuario.validarSenhaUpdate(senha, id)) {
-						request.setAttribute("msg", "Senha já existe para outro usuario");
+						msg2 = "A senha já existe para outro usuario";
+						//request.setAttribute("msg2", "Senha já existe para outro usuario");
 						podeInserir = false;
 
 					} else {
 						daoUsuario.atualizar(usuario);
+						msg = "Usuário atualizado com sucesso!";
 					}
 				}
 
@@ -295,6 +298,8 @@ public class Usuario extends HttpServlet {
 
 				if (msg != null) {
 					request.setAttribute("msg", msg);
+				} else {
+					request.setAttribute("msg2", msg2);
 				}
 
 

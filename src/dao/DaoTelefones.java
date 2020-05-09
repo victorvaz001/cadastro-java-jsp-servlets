@@ -22,7 +22,7 @@ public class DaoTelefones {
 
 		try {
 
-			String sql = "insert into telefones (numero, tipo, usuario) values (?, ?, ?)";
+			String sql = "insert into telefone (numero, tipo, usuario) values (?, ?, ?)";
 			PreparedStatement insert = connection.prepareStatement(sql);
 			insert.setString(1, telefone.getNumero());
 			insert.setString(2, telefone.getTipo());
@@ -45,7 +45,7 @@ public class DaoTelefones {
 
 		try {
 
-			String sql = "select * from telefones where usuario = "+ user;
+			String sql = "select * from telefone where usuario = "+ user;
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultado = preparedStatement.executeQuery();
 
@@ -72,7 +72,7 @@ public class DaoTelefones {
 
 		try {
 
-			String sql = "delete from telefones where id = '" + id + "'";
+			String sql = "delete from telefone where id = '" + id + "'";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.execute();
 
