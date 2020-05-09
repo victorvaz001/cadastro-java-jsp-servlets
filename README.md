@@ -1,4 +1,4 @@
-# Sistemas de cadastro com Java, JSP e Servlet
+# Sistemas Java web - JSP + JDBC + PostgreSQL
 
 ## Tela de login
 
