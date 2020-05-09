@@ -6,7 +6,7 @@
 
 
 ## Tela inicial do sistema
-![Add Tela-Cadastro](https://github.com/victorvaz001/cadastro-java-jsp-servlets/blob/master/Tela-Cadastro-.jpg)
+![Add Tela-Cadastro](https://github.com/victorvaz001/cadastro-java-jsp-servlets/blob/master/TelaPrincipal.jpg)
 
 ## Cadastro de usuarios
 ![Add cadatro-usuarios](https://github.com/victorvaz001/cadastro-java-jsp-servlets/blob/master/cadatro-usuarios-.jpg)
