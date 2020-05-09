@@ -9,7 +9,7 @@
 ![Add Tela-Cadastro](https://github.com/victorvaz001/cadastro-java-jsp-servlets/blob/master/TelaPrincipal.jpg)
 
 ## Cadastro de usuarios
-![Add cadatro-usuarios](https://github.com/victorvaz001/cadastro-java-jsp-servlets/blob/master/cadastroUsuarios.jpg)
+![Add cadatro-usuarios](https://github.com/victorvaz001/cadastro-java-jsp-servlets/blob/master/cadastro-Usuarios.jpg)
 
 ## Cadastro de telefones
 ![Add cadatro-telefones](https://github.com/victorvaz001/cadastro-java-jsp-servlets/blob/master/cadatro-telefones-.jpg)
